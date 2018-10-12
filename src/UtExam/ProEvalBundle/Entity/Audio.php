@@ -3,6 +3,7 @@
 namespace UtExam\ProEvalBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Audio
@@ -34,6 +35,30 @@ class Audio
      * @ORM\Column(name="url", type="string", length=255)
      */
     private $url;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Respuestas", inversedBy="Audio")
+     * @ORM\JoinTable(name="audio_respuestas",
+     *     joinColumns={
+     *     @ORM\JoinColumn(name="audio_id", referencedColumnName="id")
+     *   },
+     *   inverseJoinColumns={
+     *     @ORM\JoinColumn(name="respuestas_id", referencedColumnName="id")
+     *   }
+     * )
+     */
+    private $respuestas;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Pregunta", mappedBy="Audio")
+     */
+    private $pregunta;
+
+    public function __construct()
+    {
+        $this->pregunta = new ArrayCollection();
+        $this->respuestas = new ArrayCollection();
+    }
 
 
     /**

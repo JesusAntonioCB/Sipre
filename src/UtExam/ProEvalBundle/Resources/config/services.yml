@@ -2,3 +2,51 @@ services:
 #    ut_exam_pro_eval.example:
 #        class: UtExam\ProEvalBundle\Example
 #        arguments: ["@service_id", "plain_value", "%parameter%"]
+    admin.imagen:
+            class: UtExam\ProEvalBundle\Admin\ImagenAdmin
+            arguments: [~,UtExam\ProEvalBundle\Entity\Imagen, ~]
+            tags:
+                - { name: sonata.admin, manager_type: orm, label: Imagen, group: "Preguntas" }
+            public: true
+
+    admin.audio:
+            class: UtExam\ProEvalBundle\Admin\AudioAdmin
+            arguments: [~,UtExam\ProEvalBundle\Entity\Audio, ~]
+            tags:
+                - { name: sonata.admin, manager_type: orm, label: Audio, group: "Preguntas" }
+            public: true
+
+    admin.materias:
+            class: UtExam\ProEvalBundle\Admin\MateriasAdmin
+            arguments: [~,UtExam\ProEvalBundle\Entity\Materias, ~]
+            tags:
+                - { name: sonata.admin, manager_type: orm, label: Materias, group: "Preguntas" }
+            public: true
+
+    admin.Pregunta:
+            class: UtExam\ProEvalBundle\Admin\PreguntaAdmin
+            arguments: [~,UtExam\ProEvalBundle\Entity\Pregunta, ~]
+            tags:
+                - { name: sonata.admin, manager_type: orm, label: Pregunta, group: "Preguntas" }
+            public: true
+
+    admin.texto:
+            class: UtExam\ProEvalBundle\Admin\TextoAdmin
+            arguments: [~,UtExam\ProEvalBundle\Entity\Texto, ~]
+            tags:
+                - { name: sonata.admin, manager_type: orm, label: Texto, group: "Preguntas" }
+            public: true
+
+    admin.tipoPregunta:
+            class: UtExam\ProEvalBundle\Admin\TipoPreguntaAdmin
+            arguments: [~,UtExam\ProEvalBundle\Entity\TipoPregunta, ~]
+            tags:
+                - { name: sonata.admin, manager_type: orm, label: TipoPregunta, group: "Preguntas" }
+            public: true
+
+    admin.video:
+            class: UtExam\ProEvalBundle\Admin\VideoAdmin
+            arguments: [~,UtExam\ProEvalBundle\Entity\Video, ~]
+            tags:
+                - { name: sonata.admin, manager_type: orm, label: Video, group: "Preguntas" }
+            public: true

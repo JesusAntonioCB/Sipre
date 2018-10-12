@@ -3,6 +3,7 @@
 namespace UtExam\ProEvalBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Texto
@@ -34,6 +35,24 @@ class Texto
      * @ORM\Column(name="correcto", type="string", length=255)
      */
     private $correcto;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Respuestas", inversedBy="Texto")
+     * @ORM\JoinTable(name="texto_respuestas",
+     *     joinColumns={
+     *     @ORM\JoinColumn(name="texto_id", referencedColumnName="id")
+     *   },
+     *   inverseJoinColumns={
+     *     @ORM\JoinColumn(name="respuestas_id", referencedColumnName="id")
+     *   }
+     * )
+     */
+    private $respuestas;
+    public function __construct()
+    {
+        $this->respuestas = new ArrayCollection();
+    }
+
 
 
     /**

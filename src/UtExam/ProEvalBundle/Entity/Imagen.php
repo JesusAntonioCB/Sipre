@@ -3,6 +3,7 @@
 namespace UtExam\ProEvalBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Imagen
@@ -34,6 +35,37 @@ class Imagen
      * @ORM\Column(name="url", type="string", length=255)
      */
     private $url;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Respuestas", inversedBy="Imagen")
+     * @ORM\JoinTable(name="imagen_respuestas",
+     *     joinColumns={
+     *     @ORM\JoinColumn(name="imagen_id", referencedColumnName="id")
+     *   },
+     *   inverseJoinColumns={
+     *     @ORM\JoinColumn(name="respuestas_id", referencedColumnName="id")
+     *   }
+     * )
+     */
+    private $respuestas;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Pregunta", inversedBy="Imagen")
+     * @ORM\JoinTable(name="imagen_pregunta",
+     *     joinColumns={
+     *     @ORM\JoinColumn(name="imagen_id", referencedColumnName="id")
+     *   },
+     *   inverseJoinColumns={
+     *     @ORM\JoinColumn(name="pregunta_id", referencedColumnName="id")
+     *   }
+     * )
+     */
+    private $pregunta;
+    public function __construct()
+    {
+        $this->pregunta = new ArrayCollection();
+        $this->respuestas = new ArrayCollection();
+    }
 
 
     /**

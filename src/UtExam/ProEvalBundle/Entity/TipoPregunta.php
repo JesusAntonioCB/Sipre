@@ -3,6 +3,7 @@
 namespace UtExam\ProEvalBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * TipoPregunta
@@ -27,6 +28,16 @@ class TipoPregunta
      * @ORM\Column(name="nombre", type="string", length=255)
      */
     private $nombre;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Pregunta", mappedBy="TipoPregunta")
+     */
+    private $pregunta;
+
+    public function __construct()
+    {
+        $this->pregunta = new ArrayCollection();
+    }
 
 
     /**

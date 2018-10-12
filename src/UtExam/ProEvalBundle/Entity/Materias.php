@@ -1,7 +1,7 @@
 <?php
 
 namespace UtExam\ProEvalBundle\Entity;
-
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -34,6 +34,16 @@ class Materias
      * @ORM\Column(name="grado", type="string", length=255)
      */
     private $grado;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Pregunta", mappedBy="Materias")
+     */
+    private $pregunta;
+
+    public function __construct()
+    {
+        $this->pregunta = new ArrayCollection();
+    }
 
 
     /**
