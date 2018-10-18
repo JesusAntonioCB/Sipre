@@ -37,17 +37,10 @@ class Texto
     private $correcto;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Respuestas", inversedBy="Texto")
-     * @ORM\JoinTable(name="texto_respuestas",
-     *     joinColumns={
-     *     @ORM\JoinColumn(name="texto_id", referencedColumnName="id")
-     *   },
-     *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="respuestas_id", referencedColumnName="id")
-     *   }
-     * )
+     * @ORM\ManyToMany(targetEntity="Respuestas", mappedBy="Texto")
      */
     private $respuestas;
+    
     public function __construct()
     {
         $this->respuestas = new ArrayCollection();
@@ -111,5 +104,41 @@ class Texto
     public function getCorrecto()
     {
         return $this->correcto;
+    }
+
+    /**
+     * Add respuesta.
+     *
+     * @param \UtExam\ProEvalBundle\Entity\Respuestas $respuesta
+     *
+     * @return Texto
+     */
+    public function addRespuesta(\UtExam\ProEvalBundle\Entity\Respuestas $respuesta)
+    {
+        $this->respuestas[] = $respuesta;
+
+        return $this;
+    }
+
+    /**
+     * Remove respuesta.
+     *
+     * @param \UtExam\ProEvalBundle\Entity\Respuestas $respuesta
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeRespuesta(\UtExam\ProEvalBundle\Entity\Respuestas $respuesta)
+    {
+        return $this->respuestas->removeElement($respuesta);
+    }
+
+    /**
+     * Get respuestas.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRespuestas()
+    {
+        return $this->respuestas;
     }
 }

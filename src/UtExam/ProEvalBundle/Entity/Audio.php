@@ -37,15 +37,7 @@ class Audio
     private $url;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Respuestas", inversedBy="Audio")
-     * @ORM\JoinTable(name="audio_respuestas",
-     *     joinColumns={
-     *     @ORM\JoinColumn(name="audio_id", referencedColumnName="id")
-     *   },
-     *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="respuestas_id", referencedColumnName="id")
-     *   }
-     * )
+     * @ORM\ManyToMany(targetEntity="Respuestas", mappedBy="Audio")
      */
     private $respuestas;
 
@@ -53,6 +45,12 @@ class Audio
      * @ORM\OneToMany(targetEntity="Pregunta", mappedBy="Audio")
      */
     private $pregunta;
+    
+    /**
+     * @var \Application\Sonata\MediaBundle\Entity\Media
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media", cascade={"persist"}, fetch="LAZY")
+     */
+    private $media;
 
     public function __construct()
     {
@@ -117,5 +115,101 @@ class Audio
     public function getUrl()
     {
         return $this->url;
+    }
+
+    /**
+     * Add respuesta.
+     *
+     * @param \UtExam\ProEvalBundle\Entity\Respuestas $respuesta
+     *
+     * @return Audio
+     */
+    public function addRespuesta(\UtExam\ProEvalBundle\Entity\Respuestas $respuesta)
+    {
+        $this->respuestas[] = $respuesta;
+
+        return $this;
+    }
+
+    /**
+     * Remove respuesta.
+     *
+     * @param \UtExam\ProEvalBundle\Entity\Respuestas $respuesta
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeRespuesta(\UtExam\ProEvalBundle\Entity\Respuestas $respuesta)
+    {
+        return $this->respuestas->removeElement($respuesta);
+    }
+
+    /**
+     * Get respuestas.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRespuestas()
+    {
+        return $this->respuestas;
+    }
+
+    /**
+     * Add preguntum.
+     *
+     * @param \UtExam\ProEvalBundle\Entity\Pregunta $preguntum
+     *
+     * @return Audio
+     */
+    public function addPreguntum(\UtExam\ProEvalBundle\Entity\Pregunta $preguntum)
+    {
+        $this->pregunta[] = $preguntum;
+
+        return $this;
+    }
+
+    /**
+     * Remove preguntum.
+     *
+     * @param \UtExam\ProEvalBundle\Entity\Pregunta $preguntum
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removePreguntum(\UtExam\ProEvalBundle\Entity\Pregunta $preguntum)
+    {
+        return $this->pregunta->removeElement($preguntum);
+    }
+
+    /**
+     * Get pregunta.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPregunta()
+    {
+        return $this->pregunta;
+    }
+
+    /**
+     * Set media.
+     *
+     * @param \Application\Sonata\MediaBundle\Entity\Media|null $media
+     *
+     * @return Audio
+     */
+    public function setMedia(\Application\Sonata\MediaBundle\Entity\Media $media = null)
+    {
+        $this->media = $media;
+
+        return $this;
+    }
+
+    /**
+     * Get media.
+     *
+     * @return \Application\Sonata\MediaBundle\Entity\Media|null
+     */
+    public function getMedia()
+    {
+        return $this->media;
     }
 }

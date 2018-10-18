@@ -103,4 +103,40 @@ class Materias
     {
         return $this->grado;
     }
+
+    /**
+     * Add preguntum.
+     *
+     * @param \UtExam\ProEvalBundle\Entity\Pregunta $preguntum
+     *
+     * @return Materias
+     */
+    public function addPreguntum(\UtExam\ProEvalBundle\Entity\Pregunta $preguntum)
+    {
+        $this->pregunta[] = $preguntum;
+
+        return $this;
+    }
+
+    /**
+     * Remove preguntum.
+     *
+     * @param \UtExam\ProEvalBundle\Entity\Pregunta $preguntum
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removePreguntum(\UtExam\ProEvalBundle\Entity\Pregunta $preguntum)
+    {
+        return $this->pregunta->removeElement($preguntum);
+    }
+
+    /**
+     * Get pregunta.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPregunta()
+    {
+        return $this->pregunta;
+    }
 }

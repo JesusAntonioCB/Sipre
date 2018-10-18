@@ -15,7 +15,8 @@ class TextoAdmin extends AbstractAdmin
   protected function configureFormFields(FormMapper $formMapper)
   {
     $formMapper
-    ->add('Escrito', TextType::class, array("label" => "Nombre"));
+    ->add('Escrito', TextType::class, array("label" => "Nombre"))
+    ->add('correcto', TextType::class, array("label" => "es la pregunta correcta"));
   }
 
   protected function configureDatagridFilters(DatagridMapper $datagridMapper)
