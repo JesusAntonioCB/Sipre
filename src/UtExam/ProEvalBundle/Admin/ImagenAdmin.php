@@ -18,19 +18,23 @@ class ImagenAdmin extends AbstractAdmin
     $formMapper
     // 'attr' => array('class' => 'tinymce'), probar
     ->add('nombre', TextType::class, array("label" => "Nombre"))
-    ->add('url', TextType::class, array(
+    ->add('url', null, array(
           "label" => "Url (en caso de ser en linea)",
           'required' => false,
           "empty_data" => "NO APLICA",
           ))
-    ->add('media', 'sonata_media_type', array(
+    ->add('archive', 'sonata_media_type', array(
                  'provider' => 'sonata.media.provider.image',
                  'context'  => 'imagen',
                  'required' => false,
                  "label" => "Imagen",
-                 'data_class' => 'Application\Sonata\MediaBundle\Entity\Media',
                  "empty_data" => null,
-            ));
+            ))
+    ->add('correcto', null, array(
+          'required' => false,
+          "label" => "¿Es la imagen correcta?",
+          'attr' => array('class' => 'chech_Box_Confirm_Correct'),
+        ));
   }
 
   protected function configureDatagridFilters(DatagridMapper $datagridMapper)
@@ -47,8 +51,15 @@ class ImagenAdmin extends AbstractAdmin
     ->addIdentifier('url');
   }
 
-  public function configure() {
-    $this->setTemplate('edit', '@UtExamProEval/Adminjs/edit_AdminImagen.html.twig');
+  // public function configure() {
+  //   $this->setTemplate('edit', '@UtExamProEval/Adminjs/edit_AdminImagen.html.twig');
+  // }
+  public function prePersist($object){
+    //Variables
+    // dump($usercode);
+    // dump($object);
+    // die;
+    return $object;
   }
 }
 

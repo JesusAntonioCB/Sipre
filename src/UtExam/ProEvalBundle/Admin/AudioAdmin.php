@@ -19,15 +19,19 @@ class AudioAdmin extends AbstractAdmin
     ->add('url', TextType::class, array(
           "label" => "Url (en caso de ser en linea)",
           'required' => false,
-          "empty_data" => "NO APLICA"
+          "empty_data" => "NO APLICA",
+          'attr' => array('class' => 'boxUrl'),
           ))
-    ->add('media', 'sonata_media_type', array(
+    ->add('archive', 'sonata_media_type', array(
                  'provider' => 'sonata.media.provider.file',
                  'context'  => 'default',
                  'required' => false,
                  "label" => "Imagen",
-                 'data_class' => 'Application\Sonata\MediaBundle\Entity\Media'
-            ));
+            ))
+    ->add('correcto', null, array(
+      "label" => "¿Es el audio correcta?",
+      'attr' => array('class' => 'chech_Box_Confirm_Correct'),
+    ));
   }
 
   protected function configureDatagridFilters(DatagridMapper $datagridMapper)
@@ -40,6 +44,10 @@ class AudioAdmin extends AbstractAdmin
   {
     $listMapper
     ->addIdentifier('nombre');
+  }
+
+  public function configure() {
+    $this->setTemplate('edit', '@UtExamProEval/Adminjs/edit_AdminAudio.html.twig');
   }
 }
 

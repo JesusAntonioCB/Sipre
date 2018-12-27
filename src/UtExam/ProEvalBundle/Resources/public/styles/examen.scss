@@ -1,0 +1,52 @@
+.examenInterfaz{
+  header{
+    nav{
+      background-color: grey;
+      width: 100%;
+      float: left;
+      font-size: 20px;
+      p{
+        margin-bottom: 0;
+        float: left;
+      }
+      .userName{
+        float: left;
+        margin: 10px;
+      }
+      .typeExam{
+        float: left;
+        margin: 10px;
+      }
+      .examTimer{
+        margin: 10px;
+        float: right;
+        p{
+
+        }
+      }
+    }
+  }
+  section{
+    text-align: left;
+    .examenContent{
+      margin-left: 20px;
+      .examenHeader{
+        .headerElement{
+          display: inline-block;
+          width: 30%;
+        }
+      }
+      .pregunta{
+
+        .preguntaText{
+          font-weight: bold;
+        }
+        .respuestas{
+          p{
+            display: inline-block;
+          }
+        }
+      }
+    }
+  }
+}

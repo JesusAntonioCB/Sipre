@@ -15,20 +15,21 @@ class TextoAdmin extends AbstractAdmin
   protected function configureFormFields(FormMapper $formMapper)
   {
     $formMapper
-    ->add('Escrito', TextType::class, array("label" => "Nombre"))
-    ->add('correcto', TextType::class, array("label" => "es la pregunta correcta"));
+    ->add('escrito', TextType::class, array("label" => "Texto"))
+    ->add('correcto', null, array("label" => "¿Es la respuesta correcta?"));
   }
 
   protected function configureDatagridFilters(DatagridMapper $datagridMapper)
   {
     $datagridMapper
-    ->add('nombre');
+    ->add('escrito');
   }
 
   protected function configureListFields(ListMapper $listMapper)
   {
     $listMapper
-    ->addIdentifier('nombre');
+    ->addIdentifier('escrito')
+    ->add('correcto');
   }
 }
 

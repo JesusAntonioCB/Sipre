@@ -22,7 +22,7 @@ class Respuestas
     private $id;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Video", inversedBy="Respuestas")
+     * @ORM\ManyToMany(targetEntity="Video", inversedBy="respuestas", cascade={"persist"})
      * @ORM\JoinTable(name="respuestas_video",
      *     joinColumns={
      *     @ORM\JoinColumn(name="respuestas_id", referencedColumnName="id")
@@ -35,7 +35,7 @@ class Respuestas
     private $video;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Imagen", inversedBy="Respuestas")
+     * @ORM\ManyToMany(targetEntity="Imagen", inversedBy="respuestas", cascade={"persist"})
      * @ORM\JoinTable(name="respuestas_imagen",
      *     joinColumns={
      *     @ORM\JoinColumn(name="respuestas_id", referencedColumnName="id")
@@ -48,7 +48,7 @@ class Respuestas
     private $imagen;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Audio", inversedBy="Respuestas")
+     * @ORM\ManyToMany(targetEntity="Audio", inversedBy="respuestas", cascade={"persist"})
      * @ORM\JoinTable(name="respuestas_audio",
      *     joinColumns={
      *     @ORM\JoinColumn(name="respuestas_id", referencedColumnName="id")
@@ -61,7 +61,7 @@ class Respuestas
     private $audio;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Texto", inversedBy="Respuestas")
+     * @ORM\ManyToMany(targetEntity="Texto", inversedBy="respuestas", cascade={"persist"})
      * @ORM\JoinTable(name="respuestas_texto",
      *     joinColumns={
      *     @ORM\JoinColumn(name="respuestas_id", referencedColumnName="id")
@@ -73,16 +73,10 @@ class Respuestas
      */
     private $texto;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="Pregunta", mappedBy="Respuestas")
-     */
-    private $pregunta;
-
     public function __construct()
     {
         $this->imagen = new ArrayCollection();
         $this->texto = new ArrayCollection();
-        $this->pregunta = new ArrayCollection();
         $this->audio = new ArrayCollection();
         $this->video = new ArrayCollection();
     }
@@ -242,39 +236,35 @@ class Respuestas
         return $this->texto;
     }
 
-    /**
-     * Add preguntum.
-     *
-     * @param \UtExam\ProEvalBundle\Entity\Pregunta $preguntum
-     *
-     * @return Respuestas
-     */
-    public function addPreguntum(\UtExam\ProEvalBundle\Entity\Pregunta $preguntum)
-    {
-        $this->pregunta[] = $preguntum;
-
-        return $this;
-    }
-
-    /**
-     * Remove preguntum.
-     *
-     * @param \UtExam\ProEvalBundle\Entity\Pregunta $preguntum
-     *
-     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
-     */
-    public function removePreguntum(\UtExam\ProEvalBundle\Entity\Pregunta $preguntum)
-    {
-        return $this->pregunta->removeElement($preguntum);
-    }
-
-    /**
-     * Get pregunta.
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getPregunta()
-    {
-        return $this->pregunta;
+    public function __toString(){
+      if (!$this->imagen->isEmpty()) {
+        foreach ($this->imagen->getValues() as $value) {
+          if ($value->getCorrecto()) {
+            return $value->getNombre();
+          }
+        }
+      }
+      if (!$this->audio->isEmpty()) {
+        foreach ($this->audio->getValues() as $value) {
+          if ($value->getCorrecto()) {
+            return $value->getNombre();
+          }
+        }
+      }
+      if (!$this->video->isEmpty()) {
+        foreach ($this->video->getValues() as $value) {
+          if ($value->getCorrecto()) {
+            return $value->getNombre();
+          }
+        }
+      }
+      if (!$this->texto->isEmpty()) {
+        foreach ($this->texto->getValues() as $value) {
+          if ($value->getCorrecto()) {
+            return $value->getEscrito();
+          }
+        }
+      }
+      return "No existe una respuesta correcta";
     }
 }

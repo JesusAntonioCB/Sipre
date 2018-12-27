@@ -37,20 +37,28 @@ class Video
     private $url;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Respuestas", mappedBy="Video")
+     * @var string
+     *
+     * @ORM\Column(name="correcto", type="boolean")
+     */
+    private $correcto;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Respuestas", mappedBy="video")
      */
     private $respuestas;
 
     /**
-     * @ORM\OneToMany(targetEntity="Pregunta", mappedBy="Video")
+     * @ORM\OneToMany(targetEntity="Pregunta", mappedBy="video")
      */
     private $pregunta;
 
     /**
-     * @var \Application\Sonata\MediaBundle\Entity\Media
-     * @ORM\ManyToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media", cascade={"persist"}, fetch="LAZY")
+     * @var string
+     *
+     * @ORM\Column(name="archive", type="string", length=255)
      */
-    private $media;
+    private $archive;
 
     public function __construct()
     {
@@ -189,27 +197,56 @@ class Video
         return $this->pregunta;
     }
 
+    public function __toString()
+    {
+      return $this->nombre == null ? '' : $this->nombre;
+    }
+
     /**
-     * Set media.
+     * Set correcto.
      *
-     * @param \Application\Sonata\MediaBundle\Entity\Media|null $media
+     * @param bool $correcto
      *
      * @return Video
      */
-    public function setMedia(\Application\Sonata\MediaBundle\Entity\Media $media = null)
+    public function setCorrecto($correcto)
     {
-        $this->media = $media;
+        $this->correcto = $correcto;
 
         return $this;
     }
 
     /**
-     * Get media.
+     * Get correcto.
      *
-     * @return \Application\Sonata\MediaBundle\Entity\Media|null
+     * @return bool
      */
-    public function getMedia()
+    public function getCorrecto()
     {
-        return $this->media;
+        return $this->correcto;
+    }
+
+    /**
+     * Set archive.
+     *
+     * @param string $archive
+     *
+     * @return Video
+     */
+    public function setArchive($archive)
+    {
+        $this->archive = $archive;
+
+        return $this;
+    }
+
+    /**
+     * Get archive.
+     *
+     * @return string
+     */
+    public function getArchive()
+    {
+        return $this->archive;
     }
 }

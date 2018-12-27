@@ -1,3 +1,0 @@
-ut_exam_pro_eval_homepage:
-    path:     /
-    defaults: { _controller: UtExamProEvalBundle:Default:index }

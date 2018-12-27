@@ -1,0 +1,37 @@
+{% extends '@SonataAdmin/CRUD/edit.html.twig' %}
+
+{% block javascripts %}
+{{ parent() }}
+  <script type="text/javascript">
+  console.log($('.table').rows);
+  // var x=1;
+  //   $(document).ready(function() {
+  //     $('.select2-choice').on('click', function(){
+  //         var dificultadSelector = $('.Dificultad_Materias');
+  //         console.log(dificultadSelector.val());
+  //         $.ajax({
+  //             url: "{{ path('list_materias') }}",
+  //             type: "GET",
+  //             dataType: "json",
+  //             data: {
+  //                 dificultad: dificultadSelector.val()
+  //             },
+  //             success: function (dificultad) {
+  //               console.log(dificultad);
+  //                 var citySelect = $("#select2-results-1");
+  //                 citySelect.html('');
+  //                 $.each(dificultad, function (key, nameMaterias) {
+  //                   console.log(nameMaterias.id+nameMaterias.nombre);
+  //                     citySelect.append('<div class="select2-result-label" id="select2-result-label-mod-'+ x +'" role="option"><span class="select2-match"></span>'+ nameMaterias.nombre +'Nivel: '+nameMaterias.grado+'</div>');
+  //                     x=x+1;
+  //                 });
+  //             },
+  //             error: function (err) {
+  //               console.log("Ocurrio un error al cargar los datos...");
+  //                 // alert("Ocurrio un error al cargar los datos...");
+  //             }
+  //         });
+  //     });
+  //   });
+  </script>
+{% endblock %}

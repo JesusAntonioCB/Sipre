@@ -32,15 +32,15 @@ class Texto
     /**
      * @var string
      *
-     * @ORM\Column(name="correcto", type="string", length=255)
+     * @ORM\Column(name="correcto", type="boolean")
      */
     private $correcto;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Respuestas", mappedBy="Texto")
+     * @ORM\ManyToMany(targetEntity="Respuestas", mappedBy="texto")
      */
     private $respuestas;
-    
+
     public function __construct()
     {
         $this->respuestas = new ArrayCollection();
@@ -140,5 +140,9 @@ class Texto
     public function getRespuestas()
     {
         return $this->respuestas;
+    }
+    public function __toString()
+    {
+      return $this->escrito == null ? '' : $this->escrito;
     }
 }

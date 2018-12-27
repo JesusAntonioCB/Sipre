@@ -37,24 +37,26 @@ class Audio
     private $url;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Respuestas", mappedBy="Audio")
+     * @var string
+     *
+     * @ORM\Column(name="correcto", type="boolean")
+     */
+    private $correcto;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Respuestas", mappedBy="audio")
      */
     private $respuestas;
 
     /**
-     * @ORM\OneToMany(targetEntity="Pregunta", mappedBy="Audio")
+     * @var string
+     *
+     * @ORM\Column(name="archive", type="string", length=255)
      */
-    private $pregunta;
-    
-    /**
-     * @var \Application\Sonata\MediaBundle\Entity\Media
-     * @ORM\ManyToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media", cascade={"persist"}, fetch="LAZY")
-     */
-    private $media;
+    private $archive;
 
     public function __construct()
     {
-        $this->pregunta = new ArrayCollection();
         $this->respuestas = new ArrayCollection();
     }
 
@@ -153,63 +155,56 @@ class Audio
         return $this->respuestas;
     }
 
+    public function __toString()
+    {
+      return $this->nombre == null ? '' : $this->nombre;
+    }
+
     /**
-     * Add preguntum.
+     * Set correcto.
      *
-     * @param \UtExam\ProEvalBundle\Entity\Pregunta $preguntum
+     * @param bool $correcto
      *
      * @return Audio
      */
-    public function addPreguntum(\UtExam\ProEvalBundle\Entity\Pregunta $preguntum)
+    public function setCorrecto($correcto)
     {
-        $this->pregunta[] = $preguntum;
+        $this->correcto = $correcto;
 
         return $this;
     }
 
     /**
-     * Remove preguntum.
+     * Get correcto.
      *
-     * @param \UtExam\ProEvalBundle\Entity\Pregunta $preguntum
-     *
-     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     * @return bool
      */
-    public function removePreguntum(\UtExam\ProEvalBundle\Entity\Pregunta $preguntum)
+    public function getCorrecto()
     {
-        return $this->pregunta->removeElement($preguntum);
+        return $this->correcto;
     }
 
     /**
-     * Get pregunta.
+     * Set archive.
      *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getPregunta()
-    {
-        return $this->pregunta;
-    }
-
-    /**
-     * Set media.
-     *
-     * @param \Application\Sonata\MediaBundle\Entity\Media|null $media
+     * @param string $archive
      *
      * @return Audio
      */
-    public function setMedia(\Application\Sonata\MediaBundle\Entity\Media $media = null)
+    public function setArchive($archive)
     {
-        $this->media = $media;
+        $this->archive = $archive;
 
         return $this;
     }
 
     /**
-     * Get media.
+     * Get archive.
      *
-     * @return \Application\Sonata\MediaBundle\Entity\Media|null
+     * @return string
      */
-    public function getMedia()
+    public function getArchive()
     {
-        return $this->media;
+        return $this->archive;
     }
 }

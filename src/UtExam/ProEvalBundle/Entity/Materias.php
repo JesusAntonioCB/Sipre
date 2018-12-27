@@ -29,20 +29,19 @@ class Materias
     private $nombre;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="grado", type="string", length=255)
-     */
-    private $grado;
-
-    /**
-     * @ORM\OneToMany(targetEntity="Pregunta", mappedBy="Materias")
+     * @ORM\OneToMany(targetEntity="Pregunta", mappedBy="materias")
      */
     private $pregunta;
+
+    /**
+     * @ORM\OneToMany(targetEntity="PreguntasAuto", mappedBy="materias")
+     */
+    private $preguntasAuto;
 
     public function __construct()
     {
         $this->pregunta = new ArrayCollection();
+        $this->preguntasAuto = new ArrayCollection();
     }
 
 
@@ -81,30 +80,6 @@ class Materias
     }
 
     /**
-     * Set grado.
-     *
-     * @param string $grado
-     *
-     * @return Materias
-     */
-    public function setGrado($grado)
-    {
-        $this->grado = $grado;
-
-        return $this;
-    }
-
-    /**
-     * Get grado.
-     *
-     * @return string
-     */
-    public function getGrado()
-    {
-        return $this->grado;
-    }
-
-    /**
      * Add preguntum.
      *
      * @param \UtExam\ProEvalBundle\Entity\Pregunta $preguntum
@@ -138,5 +113,45 @@ class Materias
     public function getPregunta()
     {
         return $this->pregunta;
+    }
+
+    public function __toString(){
+      return $this->nombre == null ? '' : $this->nombre;
+    }
+
+    /**
+     * Add preguntasAuto.
+     *
+     * @param \UtExam\ProEvalBundle\Entity\PreguntasAuto $preguntasAuto
+     *
+     * @return Materias
+     */
+    public function addPreguntasAuto(\UtExam\ProEvalBundle\Entity\PreguntasAuto $preguntasAuto)
+    {
+        $this->preguntasAuto[] = $preguntasAuto;
+
+        return $this;
+    }
+
+    /**
+     * Remove preguntasAuto.
+     *
+     * @param \UtExam\ProEvalBundle\Entity\PreguntasAuto $preguntasAuto
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removePreguntasAuto(\UtExam\ProEvalBundle\Entity\PreguntasAuto $preguntasAuto)
+    {
+        return $this->preguntasAuto->removeElement($preguntasAuto);
+    }
+
+    /**
+     * Get preguntasAuto.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPreguntasAuto()
+    {
+        return $this->preguntasAuto;
     }
 }

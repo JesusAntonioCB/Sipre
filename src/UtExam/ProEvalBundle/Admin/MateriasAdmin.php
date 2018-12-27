@@ -15,20 +15,24 @@ class MateriasAdmin extends AbstractAdmin
   protected function configureFormFields(FormMapper $formMapper)
   {
     $formMapper
-    ->add('nombre', TextType::class, array("label" => "Nombre"));
+    ->add('nombre', TextType::class, array("label" => "Nombre"))
+    ->add('grado', TextType::class, array("label" => "Grado"));
   }
 
   protected function configureDatagridFilters(DatagridMapper $datagridMapper)
   {
     $datagridMapper
-    ->add('nombre');
+    ->add('nombre')
+    ->add('grado');
   }
 
   protected function configureListFields(ListMapper $listMapper)
   {
     $listMapper
-    ->addIdentifier('nombre');
+    ->addIdentifier('nombre')
+    ->add('grado');
   }
+  
 }
 
 

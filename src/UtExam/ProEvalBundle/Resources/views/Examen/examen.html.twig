@@ -1,0 +1,58 @@
+{% block examenInterfaz %}
+{% set y = 1 %}
+<div class="examenInterfaz">
+  <header>
+    <nav>
+      <div class="userName">
+        <p>Hola:{{ userName }}</p>
+      </div>
+      <div class="typeExam">
+        <p>Tipo de examen: </p>
+      </div>
+      <div class="examTimer">
+        <p>Tiempo:&nbsp </p>
+        <p id="ExamTimerMinutos">00</p><p>:</p><p id="ExamTimerSegundos">00</p>
+      </div>
+
+    </nav>
+  </header>
+  <section>
+  <div class="examenContent">
+    <div class="examenHeader">
+      <div class="headerElement profesor"><p>Elaborado por:&nbsp{{ examen[0].user["username"] }}</p></div>
+      <div class="headerElement fechaElaboracion"><p>Fecha de Elaboracion:&nbsp{{ examen[0].fecha }}</p></div>
+    </div>
+    <div class="instruccionesContent">
+      <div class="headerElement instrucciones"><p>Instrucciones:&nbsp{{ examen[0].titulo }}</p></div>
+    </div>
+    <div class="pregunta">
+    {% for preguntas in examen[0].pregunta %}
+      <div class="preguntaText">
+        <p>{{ preguntas.pregunta["escrito"] }}</p>
+      </div>
+      <div class="respuestas">
+        <div id="respuestaNo{{ y }}" class="respuestasText">
+          {% if preguntas.pregunta["respuestas"].texto %}
+            {% for respuestas in preguntas.pregunta["respuestas"].texto %}
+              <p>{{ respuestas.escrito }}</p>
+            {% endfor %}
+          {% endif %}
+          {% if preguntas.pregunta["respuestas"].imagen %}
+            {% for respuestas in preguntas.pregunta["respuestas"].imagen %}
+            <img src="{{ asset('assets/css/main.css') }}" alt="">
+              <p>{{ respuestas["archive"] }}</p>
+            {% endfor %}
+          {% endif %}
+        </div>
+        {% set y = y + 1 %}
+      </div>
+    {% endfor %}
+    </div>
+  </div>
+  </section>
+  <footer>
+
+  </footer>
+</div>
+
+{% endblock %}

@@ -23,15 +23,17 @@ class VideoAdmin extends AbstractAdmin
           'required' => false,
           "empty_data" => "NO APLICA"
           ))
-    ->add('media', 'sonata_media_type', array(
+    ->add('archive', 'sonata_media_type', array(
                  'provider' => 'sonata.media.provider.file',
-                 'context'  => 'video',
+                 'context'  => 'imagen',
                  'required' => false,
                  "label" => "Video",
-                 'data_class' => 'Application\Sonata\MediaBundle\Entity\Media',
                  "empty_data" => null
             ))
-    ;
+    ->add('correcto', null, array(
+      "label" => "¿Es el Video correcta?",
+      'attr' => array('class' => 'chech_Box_Confirm_Correct'),
+    ));
   }
 
   protected function configureDatagridFilters(DatagridMapper $datagridMapper)
